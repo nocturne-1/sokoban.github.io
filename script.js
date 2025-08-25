@@ -64,18 +64,18 @@ function drawBox(x, y) {
 
 function drawTarget(x, y) {
     ctx.fillStyle = "#3D3D3D";
-    ctx.fillRect(x, y, tileW, tileH);
+    ctx.fillRect(x + (tileW/2), y + (tileH/2), tileW, tileH);
     
     ctx.fillStyle = "#90EE90";
-    ctx.fillRect(x, y, tileW/2, tileH/2);
+    ctx.fillRect(x + (tileW/2), y + (tileH/2), tileW/2, tileH/2);
     
     ctx.fillStyle = "#3D3D3D";
-    ctx.fillRect(x, y, tileW/4, tileH/4);
+    ctx.fillRect(x + (tileW/2), y + (tileH/2), tileW/4, tileH/4);
 }
 
 function drawBackground(x, y) {
     ctx.beginPath();
-    ctx.arc(x, y, tileW/2, 0, Math.PI * 2, true);
+    ctx.rect(x, y, tileW, tileH);
     ctx.fillStyle = "#90EE90";
     ctx.fill();
     ctx.closePath();
