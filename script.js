@@ -2,10 +2,10 @@ const canvas = document.getElementById("sokobanCanvas");
 const ctx = canvas.getContext("2d");
 
 const Types = {
-    1: WALL,
-    2: PLAYER,
-    3: BOX,
-    4: TARGET,
+    1: "WALL",
+    2: "PLAYER",
+    3: "BOX",
+    4: "TARGET",
 }
 
 const tileW = 40;
@@ -27,6 +27,8 @@ const map = [
 ]
 
 const updateAll = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
     window.requestAnimationFrame(updateAll);
 
 }
@@ -46,7 +48,7 @@ function drawWall(x, y) {
 
 function drawPlayer(x, y) {
     ctx.beginPath();
-    ctx.arc(x, y, tileW/2, 0, Math.PI * 2, true);
+    ctx.arc(x + (tileW/2), y + (tileH/2), tileW/2, 0, Math.PI * 2, true);
     ctx.fillStyle = "#1E90FF";
     ctx.fill();
     ctx.closePath();
@@ -71,7 +73,7 @@ function drawTarget(x, y) {
     ctx.fillRect(x, y, tileW/4, tileH/4);
 }
 
-function drawBackground() {
+function drawBackground(x, y) {
     ctx.beginPath();
     ctx.arc(x, y, tileW/2, 0, Math.PI * 2, true);
     ctx.fillStyle = "#90EE90";
