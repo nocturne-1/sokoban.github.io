@@ -84,6 +84,12 @@ function drawBackground(x, y) {
     ctx.closePath();
 }
 
+let playerX;
+let playerY;
+let playerRow;
+let playerCol;
+let playerIndex;
+
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
         for (let eachCol = 0; eachCol < gridCols; eachCol++) {
@@ -97,9 +103,11 @@ const drawMap = () => {
                     drawWall(eachCol * tileW, eachRow * tileH);
                     break;
                 case 'PLAYER':
-                    let playerIndex = eachRow * gridCols + eachCol;
-                    var playerX = eachCol * tileW;
-                    var playerY = eachRow * tileH;
+                    playerX = eachCol * tileW;
+                    playerY = eachRow * tileH;
+                    playerRow = playerY / tileH;
+                    playerCol = playerX / tileW;
+                    playerIndex = playerRow * gridCols + playerCol;
                     drawPlayer(playerX, playerY);
                     break;
                 case 'BOX':
@@ -121,7 +129,15 @@ let dy = 66;
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp" || event.key ==="w") {
-       console.log(event.key);
+       if (Types[map[playerIndex - gridCols]] === "WALL") {
+        return;
+    } 
+    else {
+        ctx.clearRect(playerX, playerY, tileW, tileH);
+        drawBackground(playerX, playerY);
+        playerY -= dy;
+        drawPlayer(playerX, playerY);
+    }
     }
 })
 
