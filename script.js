@@ -121,16 +121,7 @@ let dy = 66;
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp" || event.key ==="w") {
-        if (Types[map[playerIndex - gridCols]] === "WALL") {
-            return;
-        } 
-
-        else {
-            ctx.clearRect(playerX, playerY, tileW, tileH);
-            drawBackground(playerX, playerY);
-            playerY += dy;
-            drawPlayer(playerX, playerY);
-        }
+       console.log(event.key);
     }
 })
 
