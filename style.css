@@ -7,4 +7,11 @@ canvas {
     background: #eeeeee;
     display: block;
     margin: 0 auto;
+    padding-top: 20%;
+
+}
+
+#startButton {
+    display: block;
+    font-size: 15px;
 }

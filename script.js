@@ -1,6 +1,13 @@
 const canvas = document.getElementById("sokobanCanvas");
 const ctx = canvas.getContext("2d");
 
+const startButton = document.getElementById("startButton")
+
+startButton.addEventListener("click", () => {
+    window.requestAnimationFrame(updateAll);
+
+})
+
 const Types = {
     1: "WALL",
     2: "PLAYER",
@@ -8,8 +15,8 @@ const Types = {
     4: "TARGET",
 }
 
-const tileW = 40;
-const tileH = 40;
+const tileW = 66;
+const tileH = 66;
 
 const gridRows = 9;
 const gridCols = 15;
@@ -33,11 +40,6 @@ const updateAll = () => {
 
 }
 
-window.onload = () => {
-    window.requestAnimationFrame(updateAll);
-
-}
-
 function drawWall(x, y) {
     ctx.beginPath();
     ctx.rect(x, y, tileW, tileH);
@@ -48,8 +50,10 @@ function drawWall(x, y) {
 
 function drawPlayer(x, y) {
     ctx.beginPath();
+
     ctx.arc(x + (tileW/2), y + (tileH/2), tileW/2, 0, Math.PI * 2, true);
     ctx.fillStyle = "#1E90FF";
+
     ctx.fill();
     ctx.closePath();
 }
@@ -64,13 +68,12 @@ function drawBox(x, y) {
 
 function drawTarget(x, y) {
     ctx.fillStyle = "#3D3D3D";
-    ctx.fillRect(x + (tileW/2), y + (tileH/2), tileW, tileH);
+    ctx.fillRect(x, y, tileW, tileH);
     
-    ctx.fillStyle = "#90EE90";
-    ctx.fillRect(x + (tileW/2), y + (tileH/2), tileW/2, tileH/2);
+    ctx.clearRect(x + (tileW/4), y + (tileH/4), tileW/2, tileH/2);
     
     ctx.fillStyle = "#3D3D3D";
-    ctx.fillRect(x + (tileW/2), y + (tileH/2), tileW/4, tileH/4);
+    ctx.fillRect(x + ((3*tileW)/8), y + ((3*tileH)/8), tileW/4, tileH/4);
 }
 
 function drawBackground(x, y) {
@@ -86,13 +89,18 @@ const drawMap = () => {
         for (let eachCol = 0; eachCol < gridCols; eachCol++) {
             let arrayIndex = map[eachRow * gridCols + eachCol];
             let tileType = Types[arrayIndex];
+            
+            drawBackground(eachCol * tileW, eachRow * tileH); 
 
             switch (tileType) {
                 case 'WALL':
                     drawWall(eachCol * tileW, eachRow * tileH);
                     break;
                 case 'PLAYER':
-                    drawPlayer(eachCol * tileW, eachRow * tileH);
+                    let playerIndex = eachRow * gridCols + eachCol;
+                    var playerX = eachCol * tileW;
+                    var playerY = eachRow * tileH;
+                    drawPlayer(playerX, playerY);
                     break;
                 case 'BOX':
                     drawBox(eachCol * tileW, eachRow * tileH);
@@ -107,3 +115,24 @@ const drawMap = () => {
         }
     }
 }
+
+let dx = 66;
+let dy = 66;
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowUp" || event.key ==="w") {
+        if (Types[map[playerIndex - gridCols]] === "WALL") {
+            return;
+        } 
+
+        else {
+            ctx.clearRect(playerX, playerY, tileW, tileH);
+            drawBackground(playerX, playerY);
+            playerY += dy;
+            drawPlayer(playerX, playerY);
+        }
+    }
+})
+
+
+
