@@ -124,22 +124,84 @@ const drawMap = () => {
     }
 }
 
-let dx = 66;
-let dy = 66;
-
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp" || event.key ==="w") {
-       if (Types[map[playerIndex - gridCols]] === "WALL") {
-        return;
-    } 
-    else {
-        ctx.clearRect(playerX, playerY, tileW, tileH);
-        drawBackground(playerX, playerY);
-        playerY -= dy;
-        drawPlayer(playerX, playerY);
-    }
+        if (Types[map[playerIndex - gridCols]] === "WALL") {
+            return;
+        } 
+        else {
+        map[playerIndex] = 0;
+
+        playerRow -= 1;
+        playerIndex = playerRow * gridCols + playerCol;
+
+        map[playerIndex] = 2;
+        }
     }
 })
 
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowUp" || event.key ==="w") {
+        if (Types[map[playerIndex - gridCols]] === "WALL") {
+            return;
+        } 
+        else {
+        map[playerIndex] = 0;
+
+        playerRow -= 1;
+        playerIndex = playerRow * gridCols + playerCol;
+
+        map[playerIndex] = 2;
+        }
+    }
+})
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowDown" || event.key ==="s") {
+        if (Types[map[playerIndex + gridCols]] === "WALL") {
+            return;
+        } 
+        else {
+        map[playerIndex] = 0;
+
+        playerRow += 1;
+        playerIndex = playerRow * gridCols + playerCol;
+
+        map[playerIndex] = 2;
+        }
+    }
+})
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft" || event.key ==="a") {
+        if (Types[map[playerIndex - 1]] === "WALL") {
+            return;
+        } 
+        else {
+        map[playerIndex] = 0;
+
+        playerCol -= 1;
+        playerIndex = playerRow * gridCols + playerCol;
+
+        map[playerIndex] = 2;
+        }
+    }
+})
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowRight" || event.key ==="d") {
+        if (Types[map[playerIndex + 1]] === "WALL") {
+            return;
+        } 
+        else {
+        map[playerIndex] = 0;
+
+        playerCol += 1;
+        playerIndex = playerRow * gridCols + playerCol;
+
+        map[playerIndex] = 2;
+        }
+    }
+})
 
 
