@@ -104,17 +104,8 @@ let box2Row;
 let box2Col;
 let box2Index;
 
-let target1X;
-let target1Y;
-let target1Row;
-let target1Col;
-let target1Index;
-
-let target2X;
-let target2Y;
-let target2Row;
-let target2Col;
-let target2Index;
+let target1Index = 66;
+let target2Index = 78;
 
 
 const drawMap = () => {
@@ -154,19 +145,9 @@ const drawMap = () => {
                     drawBox(eachCol * tileW, eachRow * tileH);
                     break;
                 case 'TARGET1':
-                    target1X = eachCol * tileW;
-                    target1Y = eachRow * tileH;
-                    target1Row = box1Y / tileH;
-                    target1Col = box1X / tileW;
-                    target1Index = box1Row * gridCols + box1Col;
                     drawTarget(eachCol * tileW, eachRow * tileH);
                     break;
                 case 'TARGET2':
-                    target2X = eachCol * tileW;
-                    target2Y = eachRow * tileH;
-                    target2Row = box2Y / tileH;
-                    target2Col = box2X / tileW;
-                    target2Index = box2Row * gridCols + box2Col;
                     drawTarget(eachCol * tileW, eachRow * tileH);
                     break;
                 default: 
@@ -216,7 +197,7 @@ document.addEventListener("keydown", function(event) {
             playerRow -= 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
-            
+
             if (playerIndex - playerCol === target1Index ) {
                 map[target1Index] = 5;
             }
