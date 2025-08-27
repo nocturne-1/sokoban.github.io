@@ -104,8 +104,8 @@ let box2Row;
 let box2Col;
 let box2Index;
 
-let target1Index = 66;
-let target2Index = 78;
+let target1Index = 69;
+let target2Index = 82;
 
 
 const drawMap = () => {
