@@ -8,6 +8,10 @@ startButton.addEventListener("click", () => {
 
 })
 
+resetButton.addEventListener("click", () => {
+        window.location.reload();
+});
+
 const Types = {
     1: "WALL",
     2: "PLAYER",
@@ -39,6 +43,15 @@ const updateAll = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawMap();
     window.requestAnimationFrame(updateAll);
+
+    if (
+        (box1Index === target1Index && box2Index === target2Index) || 
+        (box1Index === target2Index && box2Index === target1Index)
+    ) {
+        winScreen();
+        window.cancelAnimationFrame(updateAll);
+        return;
+      }
 
 }
 
@@ -249,6 +262,11 @@ document.addEventListener("keydown", function(event) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex - gridCols] === 1) {
+                map[playerIndex - gridCols] = 0;
+                map[playerIndex] = 1;
+            }
+
             box1Row += 1
             box1Index = box1Row * gridCols + box1Col;
             map[box1Index] = 3;
@@ -267,6 +285,11 @@ document.addEventListener("keydown", function(event) {
         else if (map[playerIndex + gridCols] === 4 && (map[playerIndex + (2 * gridCols)] !== 1 || map[playerIndex + (2 * gridCols)] !== 3)) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
+
+            if (map[playerIndex - gridCols] === 1) {
+                map[playerIndex - gridCols] = 0;
+                map[playerIndex] = 1;
+            }
 
             box2Row += 1
             box2Index = box2Row * gridCols + box2Col;
@@ -288,6 +311,11 @@ document.addEventListener("keydown", function(event) {
 
             playerRow += 1;
             playerIndex = playerRow * gridCols + playerCol;
+
+            if (map[playerIndex - gridCols] === 1) {
+                map[playerIndex - gridCols] = 0;
+                map[playerIndex] = 1;
+            }
 
             map[playerIndex] = 2;
 
@@ -313,6 +341,11 @@ document.addEventListener("keydown", function(event) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex + 1] === 1) {
+                map[playerIndex + 1] = 0;
+                map[playerIndex] = 1;
+            }
+
             box1Col -= 1
             box1Index = box1Row * gridCols + box1Col;
             map[box1Index] = 3;
@@ -332,6 +365,11 @@ document.addEventListener("keydown", function(event) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex + 1] === 1) {
+                map[playerIndex + 1] = 0;
+                map[playerIndex] = 1;
+            }
+
             box2Col -= 1
             box2Index = box2Row * gridCols + box2Col;
             map[box2Index] = 3;
@@ -349,6 +387,11 @@ document.addEventListener("keydown", function(event) {
         }
         else {
             map[playerIndex] = 0;
+
+            if (map[playerIndex + 1] === 1) {
+                map[playerIndex + 1] = 0;
+                map[playerIndex] = 1;
+            }
 
             playerCol -= 1;
             playerIndex = playerRow * gridCols + playerCol;
@@ -377,6 +420,11 @@ document.addEventListener("keydown", function(event) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex - 1] === 1) {
+                map[playerIndex - 1] = 0;
+                map[playerIndex] = 1;
+            }
+
             box1Col += 1
             box1Index = box1Row * gridCols + box1Col;
             map[box1Index] = 3;
@@ -396,6 +444,11 @@ document.addEventListener("keydown", function(event) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex - 1] === 1) {
+                map[playerIndex - 1] = 0;
+                map[playerIndex] = 1;
+            }
+
             box2Col += 1
             box2Index = box2Row * gridCols + box2Col;
             map[box2Index] = 3;
@@ -414,6 +467,11 @@ document.addEventListener("keydown", function(event) {
         else {
             map[playerIndex] = 0;
 
+            if (map[playerIndex - 1] === 1) {
+                map[playerIndex - 1] = 0;
+                map[playerIndex] = 1;
+            }
+
             playerCol += 1;
             playerIndex = playerRow * gridCols + playerCol;
 
@@ -429,6 +487,12 @@ document.addEventListener("keydown", function(event) {
     }
 })
 
-
-
+winScreen = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "50px Arial";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
+}
 
