@@ -170,6 +170,11 @@ document.addEventListener("keydown", function(event) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex + gridCols] === 1) {
+                map[playerIndex + gridCols] = 0;
+                map[playerIndex] = 1;
+            }
+
             box1Row -= 1
             box1Index = box1Row * gridCols + box1Col;
 
@@ -190,6 +195,11 @@ document.addEventListener("keydown", function(event) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
+            if (map[playerIndex + gridCols] === 1) {
+                map[playerIndex + gridCols] = 0;
+                map[playerIndex] = 1;
+            }
+
             box2Row -= 1
             box2Index = box2Row * gridCols + box2Col;
             map[box2Index] = 3;
@@ -207,6 +217,11 @@ document.addEventListener("keydown", function(event) {
         }   
         else {
             map[playerIndex] = 0;
+
+            if (map[playerIndex + gridCols] === 1) {
+                map[playerIndex + gridCols] = 0;
+                map[playerIndex] = 1;
+            }
 
             playerRow -= 1;
             playerIndex = playerRow * gridCols + playerCol;
@@ -241,6 +256,13 @@ document.addEventListener("keydown", function(event) {
             playerRow += 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
+
+            if (playerIndex - gridCols === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex - gridCols === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
         else if (map[playerIndex + gridCols] === 4 && (map[playerIndex + (2 * gridCols)] !== 1 || map[playerIndex + (2 * gridCols)] !== 3)) {
             map[box2Index] = 0;
@@ -253,14 +275,28 @@ document.addEventListener("keydown", function(event) {
             playerRow += 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
+
+            if (playerIndex - gridCols === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex - gridCols === target2Index ) {
+                map[target2Index] = 6;
+            }
         } 
         else {
-        map[playerIndex] = 0;
+            map[playerIndex] = 0;
 
-        playerRow += 1;
-        playerIndex = playerRow * gridCols + playerCol;
+            playerRow += 1;
+            playerIndex = playerRow * gridCols + playerCol;
 
-        map[playerIndex] = 2;
+            map[playerIndex] = 2;
+
+            if (playerIndex - gridCols === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex - gridCols === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
     }
 })
@@ -284,6 +320,13 @@ document.addEventListener("keydown", function(event) {
             playerCol -= 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
+
+            if (playerIndex + 1 === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex + 1 === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
         else if (map[playerIndex - 1] === 4 && (map[playerIndex - 2] !== 1 || map[playerIndex - 2] !== 3)) {
             map[box2Index] = 0;
@@ -296,14 +339,28 @@ document.addEventListener("keydown", function(event) {
             playerCol -= 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
+
+            if (playerIndex + 1 === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex + 1 === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
         else {
-        map[playerIndex] = 0;
+            map[playerIndex] = 0;
 
-        playerCol -= 1;
-        playerIndex = playerRow * gridCols + playerCol;
+            playerCol -= 1;
+            playerIndex = playerRow * gridCols + playerCol;
 
-        map[playerIndex] = 2;
+            map[playerIndex] = 2;
+
+            if (playerIndex + 1 === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex + 1 === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
     }
 })
@@ -327,6 +384,13 @@ document.addEventListener("keydown", function(event) {
             playerCol += 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
+
+            if (playerIndex - 1 === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex - 1 === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
         else if (map[playerIndex + 1] === 4 && (map[playerIndex + 2] !== 1 || map[playerIndex + 2] !== 3)) {
             map[box2Index] = 0;
@@ -339,14 +403,28 @@ document.addEventListener("keydown", function(event) {
             playerCol += 1;
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
+
+            if (playerIndex - 1 === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex - 1 === target2Index ) {
+                map[target2Index] = 6;
+            }
         } 
         else {
-        map[playerIndex] = 0;
+            map[playerIndex] = 0;
 
-        playerCol += 1;
-        playerIndex = playerRow * gridCols + playerCol;
+            playerCol += 1;
+            playerIndex = playerRow * gridCols + playerCol;
 
-        map[playerIndex] = 2;
+            map[playerIndex] = 2;
+
+            if (playerIndex - 1 === target1Index ) {
+                map[target1Index] = 5;
+            }
+            else if (playerIndex - 1 === target2Index ) {
+                map[target2Index] = 6;
+            }
         }
     }
 })
