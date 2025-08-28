@@ -1,7 +1,8 @@
 const canvas = document.getElementById("sokobanCanvas");
 const ctx = canvas.getContext("2d");
 
-const startButton = document.getElementById("startButton")
+const startButton = document.getElementById("startButton");
+const resetButton = document.getElementById("resetButton");
 
 startButton.addEventListener("click", () => {
     window.requestAnimationFrame(updateAll);
