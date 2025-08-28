@@ -263,17 +263,18 @@ document.addEventListener("keydown", function(event) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
-            if (map[playerIndex - gridCols] === 1) {
-                map[playerIndex - gridCols] = 0;
-                map[playerIndex] = 1;
-            }
-
             box1Row += 1
             box1Index = box1Row * gridCols + box1Col;
             map[box1Index] = 3;
 
             playerRow += 1;
             playerIndex = playerRow * gridCols + playerCol;
+
+            if (map[playerIndex - gridCols] === 1) {
+                map[playerIndex - gridCols] = 0;
+                map[playerIndex] = 1;
+            }
+
             map[playerIndex] = 2;
 
             if (playerIndex - gridCols === target1Index ) {
@@ -287,17 +288,18 @@ document.addEventListener("keydown", function(event) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
-            if (map[playerIndex - gridCols] === 1) {
-                map[playerIndex - gridCols] = 0;
-                map[playerIndex] = 1;
-            }
-
             box2Row += 1
             box2Index = box2Row * gridCols + box2Col;
             map[box2Index] = 3;
 
             playerRow += 1;
             playerIndex = playerRow * gridCols + playerCol;
+
+            if (map[playerIndex - gridCols] === 1) {
+                map[playerIndex - gridCols] = 0;
+                map[playerIndex] = 1;
+            }
+
             map[playerIndex] = 2;
 
             if (playerIndex - gridCols === target1Index ) {
