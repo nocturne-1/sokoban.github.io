@@ -179,10 +179,10 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
 
-            if (playerIndex - playerCol === target1Index ) {
+            if (playerIndex + playerCol === target1Index ) {
                 map[target1Index] = 5;
             }
-            else if (playerIndex - playerCol === target2Index ) {
+            else if (playerIndex + playerCol === target2Index ) {
                 map[target2Index] = 6;
             }
         }
@@ -198,10 +198,10 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
 
-            if (playerIndex - playerCol === target1Index ) {
+            if (playerIndex + playerCol === target1Index ) {
                 map[target1Index] = 5;
             }
-            else if (playerIndex - playerCol === target2Index ) {
+            else if (playerIndex + playerCol === target2Index ) {
                 map[target2Index] = 6;
             }
         }   
@@ -212,10 +212,10 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
 
-            if (playerIndex - playerCol === target1Index ) {
+            if (playerIndex + playerCol === target1Index ) {
                 map[target1Index] = 5;
             }
-            else if (playerIndex - playerCol === target2Index ) {
+            else if (playerIndex + playerCol === target2Index ) {
                 map[target2Index] = 6;
             }
         }
