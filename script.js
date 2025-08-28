@@ -163,10 +163,10 @@ document.addEventListener("keydown", function(event) {
         if (Types[map[playerIndex - gridCols]] === "WALL") {
             return;
         } 
-        else if (Types[map[playerIndex - gridCols]] === ("BOX1" || "BOX2") && Types[map[playerIndex - (2 * gridCols)]] === ("WALL" || "BOX1" || "BOX2")) {
+        else if ((map[playerIndex - gridCols] === 3 || map[playerIndex - gridCols] === 4) && (map[playerIndex - (2 * gridCols)] === 1 || map[playerIndex - (2 * gridCols)] === 3 || map[playerIndex - (2 * gridCols)] === 4)) {
             return;
         }
-        else if (Types[map[playerIndex - gridCols]] === ("BOX1") && Types[map[playerIndex - (2 * gridCols)]] !== ("WALL" || "BOX2")) {
+        else if (map[playerIndex - gridCols] === 3 && (map[playerIndex - (2 * gridCols)] !== 1 || map[playerIndex - (2 * gridCols)] !== 4)) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
@@ -179,14 +179,14 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
 
-            if (playerIndex + playerCol === target1Index ) {
+            if (playerIndex + gridCols === target1Index ) {
                 map[target1Index] = 5;
             }
-            else if (playerIndex + playerCol === target2Index ) {
+            else if (playerIndex + gridCols === target2Index ) {
                 map[target2Index] = 6;
             }
         }
-        else if (Types[map[playerIndex - gridCols]] === ("BOX2") && Types[map[playerIndex - (2 * gridCols)]] !== ("WALL" || "BOX1")) {
+        else if (map[playerIndex - gridCols] === 4 && (map[playerIndex - (2 * gridCols)] !== 1 || map[playerIndex - (2 * gridCols)] !== 3)) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
@@ -198,10 +198,10 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
 
-            if (playerIndex + playerCol === target1Index ) {
+            if (playerIndex + gridCols === target1Index ) {
                 map[target1Index] = 5;
             }
-            else if (playerIndex + playerCol === target2Index ) {
+            else if (playerIndex + gridCols === target2Index ) {
                 map[target2Index] = 6;
             }
         }   
@@ -212,10 +212,10 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
 
-            if (playerIndex + playerCol === target1Index ) {
+            if (playerIndex + gridCols === target1Index ) {
                 map[target1Index] = 5;
             }
-            else if (playerIndex + playerCol === target2Index ) {
+            else if (playerIndex + gridCols === target2Index ) {
                 map[target2Index] = 6;
             }
         }
@@ -227,10 +227,10 @@ document.addEventListener("keydown", function(event) {
         if (Types[map[playerIndex + gridCols]] === "WALL") {
             return;
         }
-        else if (Types[map[playerIndex + gridCols]] === ("BOX1" || "BOX2") && Types[map[playerIndex + (2 * gridCols)]] === ("WALL" || "BOX1" || "BOX2")) {
+        else if ((map[playerIndex + gridCols] === 3 || map[playerIndex + gridCols] === 4) && (map[playerIndex + (2 * gridCols)] === 1 || map[playerIndex + (2 * gridCols)] === 3 || map[playerIndex + (2 * gridCols)] === 4)) {
             return;
         }
-        else if (Types[map[playerIndex + gridCols]] === ("BOX1") && Types[map[playerIndex + (2 * gridCols)]] !== ("WALL" || "BOX2")) {
+        else if (map[playerIndex + gridCols] === 3 && (map[playerIndex + (2 * gridCols)] !== 1 || map[playerIndex + (2 * gridCols)] !== 4)) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
@@ -242,7 +242,7 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
         }
-        else if (Types[map[playerIndex + gridCols]] === ("BOX2") && Types[map[playerIndex + (2 * gridCols)]] !== ("WALL" || "BOX1")) {
+        else if (map[playerIndex + gridCols] === 4 && (map[playerIndex + (2 * gridCols)] !== 1 || map[playerIndex + (2 * gridCols)] !== 3)) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
@@ -270,10 +270,10 @@ document.addEventListener("keydown", function(event) {
         if (Types[map[playerIndex - 1]] === "WALL") {
             return;
         }
-        else if (Types[map[playerIndex - 1]] === ("BOX1" || "BOX2") && Types[map[playerIndex - 2]] === ("WALL" || "BOX1" || "BOX2")) {
+        else if ((map[playerIndex - 1] === 3 || map[playerIndex - 1] === 4) && (map[playerIndex - 2] === 1 || map[playerIndex - 2] === 3 || map[playerIndex - 2] === 4)) {
             return;
         }
-        else if (Types[map[playerIndex - 1]] === ("BOX1") && Types[map[playerIndex - 2]] !== ("WALL" || "BOX2")) {
+        else if (map[playerIndex - 1] === 3 && (map[playerIndex - 2] !== 1 || map[playerIndex - 2] !== 4)) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
@@ -285,7 +285,7 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
         }
-        else if (Types[map[playerIndex - 1]] === ("BOX2") && Types[map[playerIndex - 2]] !== ("WALL" || "BOX1")) {
+        else if (map[playerIndex - 1] === 4 && (map[playerIndex - 2] !== 1 || map[playerIndex - 2] !== 3)) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
@@ -313,10 +313,10 @@ document.addEventListener("keydown", function(event) {
         if (Types[map[playerIndex + 1]] === "WALL") {
             return;
         }
-        else if (Types[map[playerIndex + 1]] === ("BOX1" || "BOX2") && Types[map[playerIndex + 2]] === ("WALL" || "BOX1" || "BOX2")) {
+        else if ((map[playerIndex + 1] === 3 || map[playerIndex + 1] === 4) && (map[playerIndex + 2] === 1 || map[playerIndex + 2] === 3 || map[playerIndex + 2] === 4)) {
             return;
         }
-        else if (Types[map[playerIndex + 1]] === ("BOX1") && Types[map[playerIndex + 2]] !== ("WALL" || "BOX2")) {
+        else if (map[playerIndex + 1] === 3 && (map[playerIndex + 2] !== 1 || map[playerIndex + 2] !== 4)) {
             map[box1Index] = 0;
             map[playerIndex] = 0;
 
@@ -328,7 +328,7 @@ document.addEventListener("keydown", function(event) {
             playerIndex = playerRow * gridCols + playerCol;
             map[playerIndex] = 2;
         }
-        else if (Types[map[playerIndex + 1]] === ("BOX2") && Types[map[playerIndex + 2]] !== ("WALL" || "BOX1")) {
+        else if (map[playerIndex + 1] === 4 && (map[playerIndex + 2] !== 1 || map[playerIndex + 2] !== 3)) {
             map[box2Index] = 0;
             map[playerIndex] = 0;
 
