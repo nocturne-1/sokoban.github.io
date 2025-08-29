@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: 'BlockFont';
-    src: url(sokoban.github.io/fonts/BlockFont.ttf) format(true-type);
+    src: url("fonts/BlockFont.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -70,7 +70,7 @@ canvas {
 #startButton {
     display: inline-block;
     background-color: green;
-    border: 2px white;
+    border: 2px white solid;
     border-radius: 20px;
     color: white;
     text-align: center;
@@ -83,7 +83,7 @@ canvas {
 #resetButton {
     display: inline-block;
     background-color: red;
-    border: 2px white;
+    border: 2px white solid;
     border-radius: 20px;
     color: white;
     text-align: center;
