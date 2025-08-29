@@ -29,6 +29,7 @@ const gridRows = 9;
 const gridCols = 15;
 
 const map = [
+    //Level 1
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
     0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,
@@ -38,6 +39,7 @@ const map = [
     0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+
 ]
 
 const updateAll = () => {
@@ -49,19 +51,29 @@ const updateAll = () => {
         (box1Index === target1Index && box2Index === target2Index) || 
         (box1Index === target2Index && box2Index === target1Index)
     ) {
-        winScreen();
+        winScreen1();
         window.cancelAnimationFrame(updateAll);
         return;
       }
 
 }
 
+
 function drawWall(x, y) {
-    ctx.beginPath();
-    ctx.rect(x, y, tileW, tileH);
-    ctx.fillStyle = "#964B00";
-    ctx.fill();
-    ctx.closePath();
+    let i = 0;
+    while (i < 2) {
+        ctx.fillStyle = "#964B00";
+        ctx.fillRect(x, y + (2 * i * 11), 44, 11);
+        ctx.fillRect(x+55, y + (2 * i * 11), 11, 11);
+        i++;
+    }
+    let j = 0;
+    while (j < 2) {
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(x, y + ((2 * j * 11) + 11), tileW, 11);
+        ctx.fillRect(x + 44, y + (2 * j * 11), 11, 11);
+        j++;
+    }
 }
 
 function drawPlayer(x, y) {
@@ -172,6 +184,7 @@ const drawMap = () => {
     }
 }
 
+// Movement Controls
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp" || event.key ==="w") {
         if (Types[map[playerIndex - gridCols]] === "WALL") {
@@ -490,12 +503,21 @@ document.addEventListener("keydown", function(event) {
     }
 })
 
-winScreen = () => {
+winScreen1 = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "50px Arial";
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
+    return true;
 }
+
+if (winScreen1()) {
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            window.requestAnimationFrame(updateAll);
+        }
+    })
+};
 
