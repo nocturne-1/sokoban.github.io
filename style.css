@@ -3,6 +3,53 @@
     padding: 0;
 }
 
+@font-face {
+    font-family: 'BlockFont';
+    src: url(sokoban.github.io/fonts/BlockFont.ttf) format(true-type);
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* STYLE HEADER */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.image {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    object-position: 0 0;
+    filter: brightness(50%);
+}
+
+.centered {
+    position: absolute;
+    font-family: "BlockFont", sans-serif;
+    font-size: 130px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    white-space: nowrap;
+}
+
+.center-text {
+    width: 800px;
+    position: absolute;
+    font-family: "BlockFont", sans-serif;
+    font-size: 30px;
+    top: 75%;
+    left: 50%;
+    transform: translate(-400px, -50%);
+    color: white;
+}
+
+/* STYLE CANVAS */
+
 canvas {
     background: #eeeeee;
     display: block;
@@ -10,7 +57,32 @@ canvas {
 
 }
 
+/* STYLE BUTTONS */
+
 #startButton {
-    display: block;
-    font-size: 15px;
+    display: inline-block;
+    background-color: green;
+    border: 2px white;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    padding: 5px 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
+
+#resetButton {
+    display: inline-block;
+    background-color: red;
+    border: 2px white;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    padding: 5px 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
