@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d");
 const startButton = document.getElementById("startButton");
 const resetButton = document.getElementById("resetButton");
 
+let gameWon;
+
 startButton.addEventListener("click", () => {
     window.requestAnimationFrame(updateAll);
 
@@ -11,6 +13,7 @@ startButton.addEventListener("click", () => {
 
 resetButton.addEventListener("click", () => {
         window.location.reload();
+        window.requestAnimationFrame(updateAll);
 });
 
 const Types = {
@@ -63,8 +66,10 @@ const updateAll = () => {
         (box1Index === target1Index && box2Index === target2Index) || 
         (box1Index === target2Index && box2Index === target1Index)
     ) {
+        gameWon = true;
+        animID = window.requestAnimationFrame(updateAll)
         winScreen1();
-        window.cancelAnimationFrame(updateAll);
+        window.cancelAnimationFrame(animID);
         newLevel();
         return;
       }
@@ -150,7 +155,7 @@ let target2Index;
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
         for (let eachCol = 0; eachCol < gridCols; eachCol++) {
-            if (winScreen1()) {
+            if (gameWon === true) {
                 map = maps[1];
                 target1Index = 105;
                 target2Index = 109;
@@ -532,11 +537,11 @@ winScreen1 = () => {
     ctx.font = "50px Arial";
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
-    return true;
+    ctx.fillText("Press Enter to Continue", canvas.width / 2 - 100, canvas.height / 2 + 75)
 }
 
 function newLevel() {
-    if (winScreen1()) {
+    if (gameWon === true) {
         document.addEventListener("keydown", function(event) {
             if (event.key === "Enter") {
                 window.requestAnimationFrame(updateAll);
