@@ -4,15 +4,19 @@ const ctx = canvas.getContext("2d");
 const startButton = document.getElementById("startButton");
 const resetButton = document.getElementById("resetButton");
 
+let gameRunning = false;
+
 let gameWon;
 
 startButton.addEventListener("click", () => {
+    gameRunning = true;
     window.requestAnimationFrame(updateAll);
 
 })
 
 resetButton.addEventListener("click", () => {
-        window.location.reload();
+    gameRunning = false;    
+    window.location.reload();
         
 });
 
@@ -58,19 +62,22 @@ const maps = [
 let map;
 
 const updateAll = () => {
+    if (!gameRunning) return; // Add this check
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawMap();
-    window.requestAnimationFrame(updateAll);
 
     if (
         (box1Index === target1Index && box2Index === target2Index) || 
         (box1Index === target2Index && box2Index === target1Index)
     ) {
         gameWon = true;
+        gameRunning = false; // Stop the game loop
         winScreen1();
-        window.cancelAnimationFrame(animID);
-      }
-    animID = window.requestAnimationFrame(updateAll);
+        return; // Exit instead of continuing the loop
+    }
+    
+    window.requestAnimationFrame(updateAll);
 }
 
 
@@ -557,10 +564,15 @@ function newLevel() {
                 target1Index = 105;
                 target2Index = 109;
                 gameWon = false;
+                gameRunning = true;
                 map = maps[currentLevel];
                 drawMap();
                 window.requestAnimationFrame(updateAll);
             }
         }, { once: true });
     }
+    else {
+        return;
+    }
+    
 };
