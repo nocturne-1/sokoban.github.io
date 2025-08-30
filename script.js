@@ -57,7 +57,6 @@ const maps = [
 ]
 
 let map;
-let animID = window.requestAnimationFrame(updateAll);
 
 const updateAll = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -70,6 +69,7 @@ const updateAll = () => {
     ) {
         gameWon = true;
         winScreen1();
+        let animID = window.requestAnimationFrame(updateAll);
         window.cancelAnimationFrame(animID);
       }
 }
@@ -560,6 +560,7 @@ function newLevel() {
         }, { once: true });
     }
     else {
+        animID = window.requestAnimationFrame(updateAll);
         window.cancelAnimationFrame(animID);
         return;
     }
