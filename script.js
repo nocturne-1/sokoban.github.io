@@ -69,9 +69,8 @@ const updateAll = () => {
     ) {
         gameWon = true;
         winScreen1();
-        window.cancelAnimationFrame(animID)
+        window.cancelAnimationFrame(animID);
       }
-    animID = window.requestAnimationFrame(updateAll)
 }
 
 let currentLevel = 0;
@@ -155,17 +154,18 @@ let box2Index;
 let target1Index;
 let target2Index;
 
+if (currentLevel === 0) {
+    target1Index = 69;
+    target2Index = 82;
+} else {
+    target1Index = 105;
+    target2Index = 109;
+}
+
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
         for (let eachCol = 0; eachCol < gridCols; eachCol++) {
             map = maps[currentLevel];
-            if (currentLevel === 0) {
-                target1Index = 69;
-                target2Index = 82;
-            } else {
-                target1Index = 105;
-                target2Index = 109;
-            }
             let arrayIndex = map[eachRow * gridCols + eachCol];
             let tileType = Types[arrayIndex];
             
@@ -549,7 +549,7 @@ winScreen1 = () => {
 }
 
 function newLevel() {
-    if (currentLevel === 1) {
+    if (currentLevel < maps.length - 1) {
         document.addEventListener("keydown", function handler(e) {
             if (e.key === "Enter") {
                 currentLevel++;
