@@ -74,6 +74,23 @@ const updateAll = () => {
       }
 }
 
+const updateAll2 = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
+    window.requestAnimationFrame(updateAll);
+
+    if (
+        (box1Index === target1Index && box2Index === target2Index) || 
+        (box1Index === target2Index && box2Index === target1Index)
+    ) {
+        gameWon = true;
+        winScreen1();
+        let animID = window.requestAnimationFrame(updateAll);
+        window.cancelAnimationFrame(animID);
+      }
+}
+
+
 let currentLevel = 0;
 
 function drawWall(x, y) {
@@ -557,13 +574,8 @@ function newLevel() {
                 gameWon = false;
                 map = maps[currentLevel];
                 drawMap();
-                window.requestAnimationFrame(updateAll);
+                window.requestAnimationFrame(updateAll2);
             }
         }, { once: true });
-    }
-    else {
-        animID = window.requestAnimationFrame(updateAll);
-        window.cancelAnimationFrame(animID);
-        return;
     }
 };
