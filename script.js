@@ -71,7 +71,6 @@ const updateAll = () => {
         animID = window.requestAnimationFrame(updateAll)
         winScreen1();
         window.cancelAnimationFrame(animID);
-        newLevel();
         return;
       }
 
@@ -79,18 +78,23 @@ const updateAll = () => {
 
 
 function drawWall(x, y) {
-    let i = 0;
-    while (i < 3) {
-        ctx.fillStyle = "#964B00";
-        ctx.fillRect(x, y + (2 * i * 11), 44, 11);
-        ctx.fillRect(x+55, y + (2 * i * 11), 11, 11);
-        i++;
-    }
+    ctx.fillStyle = "#964B00";
+    ctx.fillRect(x, y, 44, 11);
+    ctx.fillRect(x+55, y, 11, 11);
+    ctx.fillRect(x, y+22, 11, 11);
+    ctx.fillRect(x+22, y+22, 44, 11);
+    ctx.fillRect(x, y+44, 44, 11);
+    ctx.fillRect(x+55, y+44, 11, 11);
+
+    ctx.fillStyle = "#000000"
+    ctx.fillRect(x+44, y, 11, 11)
+    ctx.fillRect(x+11, y+22, 11, 11)
+    ctx.fillRect(x+44, y + 44, 11, 11)
+
     let j = 0;
     while (j < 3) {
         ctx.fillStyle = "#000000";
         ctx.fillRect(x, y + ((2 * j * 11) + 11), tileW, 11);
-        ctx.fillRect(x + 44, y + (2 * j * 11), 11, 11);
         j++;
     }
 }
@@ -151,7 +155,6 @@ let box2Index;
 
 let target1Index;
 let target2Index;
-
 
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
@@ -539,6 +542,7 @@ winScreen1 = () => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
     ctx.fillText("Press Enter to Continue", canvas.width / 2 - 100, canvas.height / 2 + 75)
+    newLevel();
 }
 
 function newLevel() {
