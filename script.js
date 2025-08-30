@@ -57,6 +57,7 @@ const maps = [
 ]
 
 let map;
+let animID = window.requestAnimationFrame(updateAll);
 
 const updateAll = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -540,10 +541,10 @@ winScreen1 = () => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
     if (currentLevel < maps.length - 1) {
-        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 150, canvas.height / 2 + 75)
+        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 200, canvas.height / 2 + 75)
     }
     else {
-        ctx.fillText("Game Complete!", canvas.width / 2 - 150, canvas.height / 2 + 75)
+        ctx.fillText("Game Complete!", canvas.width / 2 - 200, canvas.height / 2 + 75)
     }
     newLevel();
 }
@@ -554,7 +555,7 @@ function newLevel() {
             if (e.key === "Enter") {
                 currentLevel++;
                 gameWon = false;
-                animID = window.requestAnimationFrame(updateAll);
+                window.requestAnimationFrame(updateAll);
             }
         }, { once: true });
     }
