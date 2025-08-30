@@ -571,8 +571,4 @@ function newLevel() {
             }
         }, { once: true });
     }
-    else {
-        return;
-    }
-    
 };
