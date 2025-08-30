@@ -69,9 +69,6 @@ const updateAll = () => {
     ) {
         gameWon = true;
         winScreen1();
-        animID = window.requestAnimationFrame(updateAll);
-        window.cancelAnimationFrame(animID);
-        return;
       }
 }
 
@@ -541,17 +538,16 @@ winScreen1 = () => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
     if (currentLevel < maps.length - 1) {
-        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 100, canvas.height / 2 + 75)
+        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 50, canvas.height / 2 + 75)
     }
     else {
-        ctx.fillText("Game Complete!", canvas.width / 2 - 100, canvas.height / 2 + 75)
+        ctx.fillText("Game Complete!", canvas.width / 2 - 50, canvas.height / 2 + 75)
     }
     newLevel();
 }
 
 function newLevel() {
     if (currentLevel === 1) {
-        gameWon = false;
         document.onkeydown = (event) => {
             if (event.key === "Enter") {
                 if (currentLevel < maps.length - 1) {
@@ -563,6 +559,8 @@ function newLevel() {
         }
     }
     else {
+        animID = window.requestAnimationFrame(updateAll);
+        window.cancelAnimationFrame(animID);
         return;
     }
 };
