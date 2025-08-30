@@ -69,7 +69,9 @@ const updateAll = () => {
     ) {
         gameWon = true;
         winScreen1();
+        window.cancelAnimationFrame(animID)
       }
+    animID = window.requestAnimationFrame(updateAll)
 }
 
 let currentLevel = 0;
@@ -538,28 +540,25 @@ winScreen1 = () => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
     if (currentLevel < maps.length - 1) {
-        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 50, canvas.height / 2 + 75)
+        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 150, canvas.height / 2 + 75)
     }
     else {
-        ctx.fillText("Game Complete!", canvas.width / 2 - 50, canvas.height / 2 + 75)
+        ctx.fillText("Game Complete!", canvas.width / 2 - 150, canvas.height / 2 + 75)
     }
     newLevel();
 }
 
 function newLevel() {
     if (currentLevel === 1) {
-        document.onkeydown = (event) => {
-            if (event.key === "Enter") {
-                if (currentLevel < maps.length - 1) {
-                    currentLevel++ 
-                    gameWon = false
-                    window.requestAnimationFrame(updateAll)
-                }
+        document.addEventListener("keydown", function handler(e) {
+            if (e.key === "Enter") {
+                currentLevel++;
+                gameWon = false;
+                animID = window.requestAnimationFrame(updateAll);
             }
-        }
+        }, { once: true });
     }
     else {
-        animID = window.requestAnimationFrame(updateAll);
         window.cancelAnimationFrame(animID);
         return;
     }
