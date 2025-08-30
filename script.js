@@ -13,13 +13,7 @@ startButton.addEventListener("click", () => {
 
 resetButton.addEventListener("click", () => {
         window.location.reload();
-        gameWon = false;
-        if (currentLevel === 1) {
-            window.requestAnimationFrame(updateAll2)
-        }
-        else {
-            window.requestAnimationFrame(updateAll);
-        }
+        
 });
 
 const Types = {
@@ -74,25 +68,9 @@ const updateAll = () => {
     ) {
         gameWon = true;
         winScreen1();
-        let animID = window.requestAnimationFrame(updateAll);
         window.cancelAnimationFrame(animID);
       }
-}
-
-const updateAll2 = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMap();
-    window.requestAnimationFrame(updateAll2);
-
-    if (
-        (box1Index === target1Index && box2Index === target2Index) || 
-        (box1Index === target2Index && box2Index === target1Index)
-    ) {
-        gameWon = true;
-        winScreen1();
-        let animID = window.requestAnimationFrame(updateAll2);
-        window.cancelAnimationFrame(animID);
-      }
+    animID = window.requestAnimationFrame(updateAll);
 }
 
 
@@ -581,7 +559,7 @@ function newLevel() {
                 gameWon = false;
                 map = maps[currentLevel];
                 drawMap();
-                window.requestAnimationFrame(updateAll2);
+                window.requestAnimationFrame(updateAll);
             }
         }, { once: true });
     }
