@@ -28,9 +28,9 @@ const tileH = 66;
 const gridRows = 9;
 const gridCols = 15;
 
-const map = [
+const maps = [
     //Level 1
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
     0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 1, 0, 0, 0, 0, 3, 0, 0, 1, 0, 0, 0, 
@@ -38,9 +38,21 @@ const map = [
     0, 0, 0, 1, 0, 0, 0, 6, 0, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //Level 2
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 
+    0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 5, 0, 0, 0, 6, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 
 ]
+
+let map;
 
 const updateAll = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -53,6 +65,7 @@ const updateAll = () => {
     ) {
         winScreen1();
         window.cancelAnimationFrame(updateAll);
+        newLevel();
         return;
       }
 
@@ -61,14 +74,14 @@ const updateAll = () => {
 
 function drawWall(x, y) {
     let i = 0;
-    while (i < 2) {
+    while (i < 3) {
         ctx.fillStyle = "#964B00";
         ctx.fillRect(x, y + (2 * i * 11), 44, 11);
         ctx.fillRect(x+55, y + (2 * i * 11), 11, 11);
         i++;
     }
     let j = 0;
-    while (j < 2) {
+    while (j < 3) {
         ctx.fillStyle = "#000000";
         ctx.fillRect(x, y + ((2 * j * 11) + 11), tileW, 11);
         ctx.fillRect(x + 44, y + (2 * j * 11), 11, 11);
@@ -130,13 +143,22 @@ let box2Row;
 let box2Col;
 let box2Index;
 
-let target1Index = 69;
-let target2Index = 82;
+let target1Index;
+let target2Index;
 
 
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
         for (let eachCol = 0; eachCol < gridCols; eachCol++) {
+            if (winScreen1()) {
+                map = maps[1];
+                target1Index = 105;
+                target2Index = 109;
+            } else {
+                map = maps[0];
+                target1Index = 69;
+                target2Index = 82;
+            }
             let arrayIndex = map[eachRow * gridCols + eachCol];
             let tileType = Types[arrayIndex];
             
@@ -513,11 +535,12 @@ winScreen1 = () => {
     return true;
 }
 
-if (winScreen1()) {
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            window.requestAnimationFrame(updateAll);
-        }
-    })
+function newLevel() {
+    if (winScreen1()) {
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                window.requestAnimationFrame(updateAll);
+            }
+        })
+    }
 };
-
