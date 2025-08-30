@@ -555,6 +555,8 @@ function newLevel() {
             if (e.key === "Enter") {
                 currentLevel++;
                 gameWon = false;
+                map = maps[currentLevel];
+                drawMap();
                 window.requestAnimationFrame(updateAll);
             }
         }, { once: true });
