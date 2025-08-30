@@ -13,6 +13,7 @@ startButton.addEventListener("click", () => {
 
 resetButton.addEventListener("click", () => {
         window.location.reload();
+        gameWon = false;
         window.requestAnimationFrame(updateAll);
 });
 
