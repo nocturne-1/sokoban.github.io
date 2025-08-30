@@ -57,9 +57,11 @@ const maps = [
 ]
 
 let map;
+let animID = window.requestAnimationFrame(updateAll);
 
 const updateAll = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    currentLevel();
     drawMap();
     window.requestAnimationFrame(updateAll);
 
@@ -68,7 +70,7 @@ const updateAll = () => {
         (box1Index === target2Index && box2Index === target1Index)
     ) {
         gameWon = true;
-        animID = window.requestAnimationFrame(updateAll)
+        currentLevel();
         winScreen1();
         window.cancelAnimationFrame(animID);
         return;
@@ -76,6 +78,13 @@ const updateAll = () => {
 
 }
 
+let currentLevel;
+function currentLevel() {
+    currentLevel = 0
+    if (gameWon === true) {
+        currentLevel += 1
+    }
+}
 
 function drawWall(x, y) {
     ctx.fillStyle = "#964B00";
@@ -86,14 +95,14 @@ function drawWall(x, y) {
     ctx.fillRect(x, y+44, 44, 11);
     ctx.fillRect(x+55, y+44, 11, 11);
 
-    ctx.fillStyle = "#000000"
+    ctx.fillStyle = "#3B270C"
     ctx.fillRect(x+44, y, 11, 11)
     ctx.fillRect(x+11, y+22, 11, 11)
     ctx.fillRect(x+44, y + 44, 11, 11)
 
     let j = 0;
     while (j < 3) {
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "#3B270C";
         ctx.fillRect(x, y + ((2 * j * 11) + 11), tileW, 11);
         j++;
     }
@@ -159,14 +168,13 @@ let target2Index;
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
         for (let eachCol = 0; eachCol < gridCols; eachCol++) {
-            if (gameWon === true) {
-                map = maps[1];
-                target1Index = 105;
-                target2Index = 109;
-            } else {
-                map = maps[0];
+            map = maps[currentLevel];
+            if (currentLevel === 0) {
                 target1Index = 69;
                 target2Index = 82;
+            } else {
+                target1Index = 105;
+                target2Index = 109;
             }
             let arrayIndex = map[eachRow * gridCols + eachCol];
             let tileType = Types[arrayIndex];
@@ -546,11 +554,15 @@ winScreen1 = () => {
 }
 
 function newLevel() {
-    if (gameWon === true) {
+    if (currentLevel === 1) {
+        gameWon = false;
         document.addEventListener("keydown", function(event) {
             if (event.key === "Enter") {
                 window.requestAnimationFrame(updateAll);
             }
         })
+    }
+    else if (currentLevel > 1) {
+        window.cancelAnimationFrame(animID)
     }
 };
