@@ -14,7 +14,12 @@ startButton.addEventListener("click", () => {
 resetButton.addEventListener("click", () => {
         window.location.reload();
         gameWon = false;
-        window.requestAnimationFrame(updateAll);
+        if (currentLevel === 1) {
+            window.requestAnimationFrame(updateAll2)
+        }
+        else {
+            window.requestAnimationFrame(updateAll);
+        }
 });
 
 const Types = {
@@ -77,7 +82,7 @@ const updateAll = () => {
 const updateAll2 = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawMap();
-    window.requestAnimationFrame(updateAll);
+    window.requestAnimationFrame(updateAll2);
 
     if (
         (box1Index === target1Index && box2Index === target2Index) || 
@@ -85,7 +90,7 @@ const updateAll2 = () => {
     ) {
         gameWon = true;
         winScreen1();
-        let animID = window.requestAnimationFrame(updateAll);
+        let animID = window.requestAnimationFrame(updateAll2);
         window.cancelAnimationFrame(animID);
       }
 }
@@ -558,10 +563,10 @@ winScreen1 = () => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
     if (currentLevel < maps.length - 1) {
-        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 200, canvas.height / 2 + 75)
+        ctx.fillText("Press Enter to Continue", canvas.width / 2 - 230, canvas.height / 2 + 75)
     }
     else {
-        ctx.fillText("Game Complete!", canvas.width / 2 - 200, canvas.height / 2 + 75)
+        ctx.fillText("Game Complete!", canvas.width / 2 - 230, canvas.height / 2 + 75)
     }
     newLevel();
 }
@@ -571,6 +576,8 @@ function newLevel() {
         document.addEventListener("keydown", function handler(e) {
             if (e.key === "Enter") {
                 currentLevel++;
+                target1Index = 105;
+                target2Index = 109;
                 gameWon = false;
                 map = maps[currentLevel];
                 drawMap();
