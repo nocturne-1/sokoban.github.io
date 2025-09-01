@@ -555,7 +555,7 @@ winScreen1 = () => {
         ctx.fillText("Press Enter to Continue", canvas.width / 2 - 230, canvas.height / 2 + 75)
     }
     else {
-        ctx.fillText("Game Complete!", canvas.width / 2 - 230, canvas.height / 2 + 75)
+        ctx.fillText("Game Complete!", canvas.width / 2 - 210, canvas.height / 2 + 75)
     }
     newLevel();
 }
