@@ -167,8 +167,8 @@ function mapIndices() {
     target1Index = 69;
     target2Index = 82;
     } else {
-    target1Index = 105;
-    target2Index = 109;
+    target1Index = 110;
+    target2Index = 114;
     }
 }
 
@@ -565,8 +565,8 @@ function newLevel() {
         document.addEventListener("keydown", function handler(e) {
             if (e.key === "Enter") {
                 currentLevel++;
-                target1Index = 105;
-                target2Index = 109;
+                target1Index = 110;
+                target2Index = 114;
                 gameWon = false;
                 gameRunning = true;
                 map = maps[currentLevel];
