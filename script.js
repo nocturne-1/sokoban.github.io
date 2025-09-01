@@ -60,11 +60,13 @@ const maps = [
 ]
 
 let map;
+let currentLevel = 0;
 
 const updateAll = () => {
     if (!gameRunning) return;
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    mapIndices();
     drawMap();
 
     if (
@@ -80,9 +82,6 @@ const updateAll = () => {
     
     window.requestAnimationFrame(updateAll);
 }
-
-
-let currentLevel = 0;
 
 function drawWall(x, y) {
     ctx.fillStyle = "#964B00";
@@ -163,13 +162,16 @@ let box2Index;
 let target1Index;
 let target2Index;
 
-if (currentLevel === 0) {
+function mapIndices() {
+    if (currentLevel === 0) {
     target1Index = 69;
     target2Index = 82;
-} else {
+    } else {
     target1Index = 105;
     target2Index = 109;
+    }
 }
+
 
 const drawMap = () => {
     for (let eachRow = 0; eachRow < gridRows; eachRow++) {
