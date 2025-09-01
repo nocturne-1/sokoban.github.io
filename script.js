@@ -179,6 +179,7 @@ const drawMap = () => {
             map = maps[currentLevel];
             let arrayIndex = map[eachRow * gridCols + eachCol];
             let tileType = Types[arrayIndex];
+            console.log(target1Index, target2Index);
             
             drawBackground(eachCol * tileW, eachRow * tileH); 
 
