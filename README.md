@@ -1,2 +1,43 @@
-# sokoban.github.io
-My first sokoban-style game using JS &amp; HTML/CSS!
+## Sokoban-ish
+Hi! My project is Sokoban-ish, a two-level sokoban-style game where the player must place blocks/crates on targets! In my game, the player can move in four directions (up, down, left, or right) using arrow keys or WASD, can push blocks, and can reset the game to its initial state at any time with the Reset Button.Sokoban-ish differs from traditional sokoban in that when the player moves, the walls do not remain stationary; players pull walls with them everytime they move. 
+
+## Why I Made Sokoban-Ish
+About a year ago, I started playing PuzzleScript games by Jack Lance (specifically Easy Enigma, but also some less sokoban-y games like Fish Friend and Easy Enigma) - and loved them! Puzzling out how to get a crate on a target (or, later on, a letter or punctuation equivalent of a crate on a target) became one of my hobbies, and discovering new levels made me so, so excited (even though I'd inevitably get stuck). After playing his games, I started branching out to more games on PuzzleScript - an open-source, HTML5 game engine built for tile-based games (similar to Sprig in its purpose) - and enjoyed them nearly just as much (shoutout Sokoban... in 3D! and Broken Abacus). So, about six months ago, I thought I'd build my own game using PuzzleScript. The game, titled My First Game (play it at https://www.puzzlescript.net/play.html?p=f1b799b4c42264b63872eb79e021d890), is essentially Sokoban-ish but in PuzzleScript - and, true to its name, was the first PuzzleScript game I made!
+
+At the time, I had a very basic understanding of Python, and no coding experience whatsoever in HTML, CSS, or JavaScript, so I couldn't build it as a project outside of PuzzleScript even though I wanted to. But, this summer I did GWC Pathways, where I learned the basics of HTML, CSS, and JS, and since I had the knowledge, I thought I'd work to rebuild "My First Game" as a playable game published to a real website; that was how Sokoban-ish was born!
+
+## How I made Sokoban-ish
+Sokoban-ish was made with HTML, CSS, and (mostly) JavaScript. This was my first project actually using JS extensively for most of its features, especially using JS to modify an HTML canvas. To build the game, I created a canvas for the map on HTML using the canvas tag, and I allowed my JS code to access the canvas and modify it using getContext() to access the canvas's 2D rendering context (ctx). 
+
+From there, I set the map using a numerical array with multiple entries (one per level), with each entry containing another array specifying tiles on the map and with different numerical values for the player, targets, boxes, and walls specified in a dictionary (1 for wall, 2 for player, 3 & 4 for boxes, and 5 & 6 for targets). The specific entry of the map that is called per level is stored in the currentLevel variable, initially set to zero but increased once a player beats a level. To actually draw the various components of the map, I used drawing functions on ctx, and ran through each entry in the map array, using switch cases to draw different components (ex: player vs wall vs target) for different array index values. For specific components (players, boxes, and targets), I set variables to store their indices for future access when moving these components (example: playerIndex was the index for the players position).
+
+To redraw the map after playermovement, I used a continuous animation frame, which loads on when the start button is pressed and calls itself continuously while the game is running, stopping once all boxes are on their targets (as this resets the gameRunning variable to false, essentially pausing the game). 
+
+To encode movement, I used eventListeners for specific keys (arrow keys and WASD), changing the map index of the player each time a key was pressed given the specific key (for example, when arrowRight is pressed, the playerIndex increased by 1 and the map entry of the new playerIndex was set to 2). Before the player moved however, I checked for if a wall or two boxes were in front of the player in the direction of movement using if statements, not changing the playerIndex if that was the case. When each movement key was pressed, I also checked for whether there was a wall behind the player, and if there was, I made the wall's original map index be valued 0 (for background) and changed the index for the wall so it would be "pulled" by the player. To push boxes, I used if statements to check whether there was a box in front of the player, and if so, to increase the box index given the direction it was being pushed, so when the map was redrawn, the box would be redrawn at its new position, just like the player and walls.
+
+To understand whether win conditions were met, I ensured every time the animation frame was called, the function would check whether both box indices on the map were the same as target indices (which were constant for each level). Once win conditions were met, the current level increases, a win screen is displayed, and after the player acknowledges their win, the next level map is loaded up and the constant indices of targets are changed. 
+
+## Struggles & Learning Points
+This project involved a lot of firsts, especially on the JS end! I had never formally used JS to build anything before this, and a lot of JS elements were new (how to define boolean statements, set variables, request an animation frame, draw using ctx, and define functions). As such, I had a lot of issues:
+- when moving the player, I was redrawing the player manually, so I had issues moving blocks
+- targets would disappear after any other elements (players, boxes) were on them
+- the boolean statements weren't encoded properly, so some of the movement checks for whether walls or two boxes were in front of the player would evaluate to always true 
+- the boolean statements to check win conditions did not work
+- the "enter" event listener after the first level was won did not work, and the next level would automatically load up
+- the "enter" event listener would work, but after being pressed, only a blank canvas would show
+- the targets for level two would disappear after other elements were on them and win condition checks did not work for level 2.
+
+But, that also meant a lot of fixes! All my fixes:
+- instead of moving the player coordinates manually and redrawing the player without changing the map array, I changed the value of the playerIndex on the map directly (and the same went for boxes and walls), so the player's new position would be reflected automatically when the animation frame updated
+- I made the indices for targets be constants defined before the map was drawn and target checks were added; whenever the player moved, I added a check to see that a target was not in the position the player just was, and if it was, I would overwrite the value of the map index for that position to be the value for a target
+- I learned that true || false is true! And that I was evaluating 'or' and 'and' statements for just the ending instead of for the whole thing (ex: map[someIndex] === (3 || 4) instead of (map[someIndex] === 3) || (map[someIndex] === 4)), which meant the statement automatically evaluated for the first value instead of checking for whether both values were in front of the player (and same went for checking whether both boxes were on both targets). TL;DR: I rewrote all of my boolean statements
+- I was calling my enter event listener in my updateAll function (when my animation frame was called), and the animation frame would automatically load after that; I never paused the animation frame to wait for the user to press enter. So, I ended up calling that event listener in my winScreen function.
+- My first fix was to use cancelAnimationFrame() to stop the game from reloading, which was the main cause of the blank canvas issue. I ended up getting rid of cancelAnimationFrame() and using a gameRunning check instead. I added a variable to check whether the game was running, initially set to true when the start button was pressed, and only had the animation frame run when gameRunning was true. When a player won, I set gameRunning to false, pausing the game, and then reset it after Enter was pressed, fixing the blank canvas!
+- The targetIndex variable for both targets in level 2 was just wrong. I didn't realize this until doing some testing using console.log() to see what my box and target indices were as I played!
+
+Some overall learning points for me were:
+- use variables!! setting variables for player, box, and target indices as well as to check whether the game was running saved me so much
+- just boolean statements; I didn't really understand them until this project
+- how to draw using JS; while I didn't have any issues with this, it was also the first time I've done this and I had to learn how to use ctx and fill functions from scratch
+- test what's happening when possible, especially when things don't work!
+
