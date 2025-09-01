@@ -62,7 +62,7 @@ const maps = [
 let map;
 
 const updateAll = () => {
-    if (!gameRunning) return; // Add this check
+    if (!gameRunning) return;
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawMap();
@@ -72,9 +72,10 @@ const updateAll = () => {
         (box1Index === target2Index && box2Index === target1Index)
     ) {
         gameWon = true;
-        gameRunning = false; // Stop the game loop
+        gameRunning = false; 
         winScreen1();
-        return; // Exit instead of continuing the loop
+        console.log(box1Index, box2Index, target1Index, target2Index);
+        return;
     }
     
     window.requestAnimationFrame(updateAll);
@@ -221,7 +222,7 @@ const drawMap = () => {
     }
 }
 
-// Movement Controls
+
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp" || event.key ==="w") {
         if (Types[map[playerIndex - gridCols]] === "WALL") {
