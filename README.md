@@ -1,5 +1,5 @@
 ## Sokoban-ish
-Hi! My project is Sokoban-ish, a two-level sokoban-style game where the player must place blocks/crates on targets! In my game, the player can move in four directions (up, down, left, or right) using arrow keys or WASD, can push blocks, and can reset the game to its initial state at any time with the Reset Button.Sokoban-ish differs from traditional sokoban in that when the player moves, the walls do not remain stationary; players pull walls with them everytime they move. 
+Hi! My project is Sokoban-ish, a two-level sokoban-style game where the player must place blocks/crates on targets! In my game, the player can move in four directions (up, down, left, or right) using arrow keys or WASD, can push blocks, and can reset the game to its initial state at any time with the Reset Button. Sokoban-ish differs from traditional sokoban in that when the player moves, the walls do not remain stationary; players pull walls with them everytime they move. 
 [![Athena Award Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Faward.athena.hackclub.com%2Fapi%2Fbadge)](https://award.athena.hackclub.com?utm_source=readme)
 
 ## Why I Made Sokoban-Ish
